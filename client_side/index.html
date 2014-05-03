@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <!--
+  /*
+   * This file is part of monitor_it.
+   * 
+   * monitor_it is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * any later version.
+   * 
+   * monitor_it is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU General Public License for more details.
+   * 
+   * You should have received a copy of the GNU General Public License
+   * along with monitor_it.  If not, see <http://www.gnu.org/licenses/>.
+   */
+  -->
+</head>
+
+<body>
+  <div class="container" id="content">
+    <div class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="https://github.com/alan-mushi/monitor_it">Monitor it!</a>
+      </div>
+    
+      <ul id="nav_server_list" class="nav navbar-nav">
+      </ul>
+    
+      <div class="nav navbar-nav navbar-right" style="padding-right: 25px">
+        <button id="add_server_btn" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add_server_modal">add a server</button>
+      </div>
+    </div>
+  </div>
+    
+    <div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="add_server_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button id="add_server_btn_close" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Monitor a new server</h4>
+          </div>
+          
+          <div class="modal-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="add_server_url_proto">http://</span>
+                <input id="add_server_url" type="text" class="form-control" placeholder="Server URL">
+            </div>
+            <br />
+            <input id="add_server_name" type="text" class="form-control" placeholder="Server Name">
+
+            <div id="add_server_alerts_area">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button id="add_server_modal_btn" type="button" class="btn btn-default">try to connect</button>
+          </div>
+        
+        </div><!-- modal-content -->
+      </div><!-- modal-dialog -->
+    </div><!-- modal -->
+
+    <!-- alert area -->
+    <div class="alert alert-danger" style="display: none" id="cantconnect">
+      The connection <span id="servername"></span> failed.
+      <div id="cantconnect-actions">
+        <button type="button" class="btn btn-default" id="cantconnect-remove">Remove server</button>
+        <button type="button" class="btn btn-danger" id="cantconnect-retry">Retry connection</button>
+      </div>
+    </div>
+    
+    <div id="main_stage">
+    </div>
+        
+    </div>
+
+    <script src="Chart.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="logic.js"type="text/javascript"></script>
+  </body>
+  </html>
