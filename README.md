@@ -4,6 +4,8 @@ monitor_it
 Very simple remote system monitor using python 3, jquery and Chart.js.
 Monitor cpu, memory, system load, disks and network interfaces of multiple servers within your internet browser.
 
+**Works for linux**, you may have chances on *BSD... If you want it for another platform, do a pull request.
+
 ## Disclamer
 
 This is my first javascript project so if you have a better/cleaner way to do things, tell me about it!
