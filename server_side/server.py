@@ -66,6 +66,10 @@ DISKS = ["sda"]
 # Interval used for network and cpu computation
 SAMPLE_INTERVAL = 2
 
+# Interval under which multiple request will have the
+# same response
+SAME_RESPONSE_INTERVAL = 1
+
 ##########################
 # Nothing more to modify #
 ##########################
@@ -74,11 +78,14 @@ ERROR_str = "[-] "
 SUCCESS_str = "[+] "
 server_sock = None
 cpu_last = None
+cpu_last_percentage = None
 thread_cpu = None
 thread_network = None
 ifaces_nb_bytes_last = []
 ifaces_bps_last = []
 continue_threads_loops = True
+last_response = None
+last_request_time = 0
 
 def disk_stats():
     """Aggregate disks statistics"""
@@ -216,6 +223,8 @@ def normalize_line_endings(s):
     return ''.join((line + '\n') for line in s.splitlines())
 
 def run_http_server():
+    global last_request_time
+    global last_response
     server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
     try:
         server_sock.bind((LISTEN_IP, PORT_NO))
@@ -244,9 +253,17 @@ def run_http_server():
             random_http_code = random.sample(crazy_http_codes, 1)[0]
             response += ''.join(str(random_http_code))
         else:
-            response_body = json.dumps({"disk": disk_stats(),    "net": format_network_stats(), 
-                                        "load": loadavg_stats(), "mem": memory_stats(),
-                                        "cpu" : get_cpu_last_percentage() })
+            if time.time() - last_request_time <= SAME_RESPONSE_INTERVAL:
+                response_body = last_response
+            else:
+                last_response = json.dumps({"disk": disk_stats(),
+                                            "net" : format_network_stats(),
+                                            "load": loadavg_stats(),
+                                            "mem" : memory_stats(),
+                                            "cpu" : get_cpu_last_percentage() })
+
+                response_body = last_response
+                last_request_time = time.time()
 
             response_headers = {
                 'Content-Type': 'text/html; encoding=utf8',
