@@ -6,6 +6,8 @@ Monitor cpu, memory, system load, disks and network interfaces of multiple serve
 
 **Works for linux**, you may have chances on *BSD... If you want it for another platform, do a pull request.
 
+![Just an example of what it looks like](/Client side.png?raw=true)
+
 ## Disclamer
 
 This is my first javascript project so if you have a better/cleaner way to do things, tell me about it!
